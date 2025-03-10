@@ -1,0 +1,12 @@
+FROM nginx:stable
+RUN set -e ; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends iputils-ping iproute2 dnsutils; \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+
+RUN set -e ; \
+    ln -snf /usr/share/zoneinfo/Europe/Moscow /etc/localtime ; \
+    echo Europe/Moscow > /etc/timezone
+
+WORKDIR /var/www/html
+COPY files/index.html .
